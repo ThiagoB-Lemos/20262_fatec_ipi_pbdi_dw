@@ -1,29 +1,37 @@
-INSERT INTO staging.sales(
-	invoice_id, branch, city, customer_type, gender, product_line, payment, unit_price, quantity, tax_5pct, total, cogs, gross_income, rating, sale_ts
-)
-SELECT
-	TRIM(invoice_id),
-	UPPER(TRIM(branch)),
-	INITCAP(TRIM(city)),
-	INITCAP(TRIM(customer_type)),
-	INITCAP(TRIM(gender)),
-	INITCAP(TRIM(product_line)),
-	INITCAP(TRIM(payment)),
-	CAST(TRIM(unit_price) AS NUMERIC(10, 2)),
-	CAST(TRIM(quantity) AS INTEGER),
-	CAST(TRIM(tax_5pct) AS NUMERIC(10, 4)),
-	CAST(TRIM(total) AS NUMERIC(12, 2)),
-	CAST(TRIM(cogs) AS NUMERIC(12, 2)),
-	CAST(TRIM(gross_income) AS NUMERIC(10, 4)),
-	CAST(TRIM(rating) AS NUMERIC(4, 1)),
-	TO_TIMESTAMP(
-		TRIM(sale_date) || ' ' || TRIM(sale_time),
-		'MM/DD/YYYY HH24:MI'
-	)
-FROM raw.sales
-WHERE TRIM(invoice_id) <> '';
+-- SELECT
+--     COUNT(*) AS total,
+--     COUNT(DISTINCT TRIM(invoice_id)) AS invoices_unicos
+-- FROM raw.sales;
 
---encontrar o alter table que eu preciso
+
+-- SELECT * FROM staging.sales
+
+-- INSERT INTO staging.sales(
+-- 	invoice_id, branch, city, customer_type, gender, product_line, payment, unit_price, quantity, tax_5pct, total, cogs, gross_income, rating, sale_ts
+-- )
+-- SELECT DISTINCT
+-- 	TRIM(invoice_id),
+-- 	UPPER(TRIM(branch)),
+-- 	INITCAP(TRIM(city)),
+-- 	INITCAP(TRIM(customer_type)),
+-- 	INITCAP(TRIM(gender)),
+-- 	INITCAP(TRIM(product_line)),
+-- 	INITCAP(TRIM(payment)),
+-- 	CAST(TRIM(unit_price) AS NUMERIC(10, 2)),
+-- 	CAST(TRIM(quantity) AS INTEGER),
+-- 	CAST(TRIM(tax_5pct) AS NUMERIC(10, 4)),
+-- 	CAST(TRIM(total) AS NUMERIC(12, 2)),
+-- 	CAST(TRIM(cogs) AS NUMERIC(12, 2)),
+-- 	CAST(TRIM(gross_income) AS NUMERIC(10, 4)),
+-- 	CAST(TRIM(rating) AS NUMERIC(4, 1)),
+-- 	TO_TIMESTAMP(
+-- 		TRIM(sale_date) || ' ' || TRIM(sale_time),
+-- 		'MM/DD/YYYY HH24:MI'
+-- 	)
+-- FROM raw.sales
+-- WHERE TRIM(invoice_id) <> '';
+
+-- encontrar o alter table que eu preciso
 -- ALTER TABLE staging.sales
 -- ALTER COLUMN branch TYPE VARCHAR(200);
 
@@ -46,7 +54,6 @@ WHERE TRIM(invoice_id) <> '';
 -- 	gross_income NUMERIC(10, 4) NOT NULL,
 -- 	rating NUMERIC(4, 1) NOT NULL
 -- );
-
 
 -- SELECT * FROM raw.sales;
 
